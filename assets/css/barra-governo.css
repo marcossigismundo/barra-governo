@@ -1,0 +1,317 @@
+/* ==========================================================================
+   Barra do Governo Federal — Styles
+   ========================================================================== */
+
+#barra-governo {
+    position: relative;
+    z-index: 99999;
+    font-family: "Rawline", Raleway, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.45;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+#barra-governo *,
+#barra-governo *::before,
+#barra-governo *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Container */
+.bg-container {
+    background: #fff;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12);
+    width: 100%;
+}
+
+.bg-header {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    max-width: 1400px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding: 10px 40px !important;
+    min-height: 56px !important;
+    float: none !important;
+    text-align: left !important;
+}
+
+/* Logo */
+.bg-logo {
+    display: flex;
+    align-items: center;
+    margin-right: 40px;
+}
+
+.bg-logo a {
+    display: inline-flex;
+    text-decoration: none;
+    line-height: 0;
+}
+
+.bg-logo img {
+    height: 36px;
+    width: auto;
+}
+
+/* Actions — pushed to the right */
+.bg-actions {
+    display: flex !important;
+    align-items: center !important;
+    margin-left: auto !important;
+    flex-shrink: 0;
+    gap: 6px;
+}
+
+/* Divider */
+.bg-divider {
+    display: inline-block;
+    width: 1px;
+    height: 32px;
+    background: #d6d6d6;
+    margin: 0 16px;
+    flex-shrink: 0;
+}
+
+/* Buttons — shared */
+.bg-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 0;
+    border-radius: 50%;
+    color: #1351b4;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+    transition: background-color 0.2s;
+    flex-shrink: 0;
+}
+
+.bg-btn:hover {
+    background: rgba(19, 81, 180, 0.12);
+}
+
+.bg-btn:focus-visible {
+    outline: 4px dashed #c2850c;
+    outline-offset: 4px;
+}
+
+.bg-btn i {
+    font-size: 18px;
+    line-height: 1;
+    width: auto;
+}
+
+/* Quick links */
+.bg-links {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.bg-toggle-links {
+    display: none;
+}
+
+.bg-links-list {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+}
+
+.bg-links-title {
+    display: none;
+}
+
+.bg-links-list li a {
+    display: inline-block;
+    padding: 8px 10px !important;
+    color: #1351b4;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    white-space: nowrap;
+    border-radius: 100em;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.bg-links-list li a:hover {
+    background: #dce8f5;
+    color: #0c326f;
+}
+
+.bg-links-list li a:focus-visible {
+    outline: 4px dashed #c2850c;
+    outline-offset: 4px;
+}
+
+/* Login */
+.bg-login {
+    display: flex;
+    align-items: center;
+}
+
+.bg-btn-login {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #1351b4;
+    color: #fff;
+    border: 0;
+    border-radius: 100em;
+    padding: 12px 36px !important;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    white-space: nowrap;
+    text-decoration: none;
+    transition: background-color 0.2s;
+}
+
+.bg-btn-login:hover {
+    background: #0c326f;
+    color: #fff;
+    text-decoration: none;
+}
+
+.bg-btn-login:focus-visible {
+    outline: 4px dashed #c2850c;
+    outline-offset: 4px;
+}
+
+.bg-btn-login i {
+    font-size: 16px;
+}
+
+/* Screen reader only */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+/* ==========================================================================
+   Responsive — Tablet (< 992px)
+   ========================================================================== */
+
+@media (max-width: 991px) {
+    .bg-header {
+        padding: 10px 24px;
+    }
+
+    .bg-logo {
+        margin-right: 24px;
+    }
+
+    .bg-links-list {
+        gap: 4px;
+    }
+
+    .bg-links-list li a {
+        font-size: 13px;
+        padding: 7px 12px;
+    }
+
+    .bg-btn-login .bg-login-text {
+        display: none;
+    }
+
+    .bg-btn-login {
+        border-radius: 50%;
+        width: 44px;
+        height: 44px;
+        padding: 0;
+        justify-content: center;
+    }
+}
+
+/* ==========================================================================
+   Responsive — Mobile (< 576px)
+   ========================================================================== */
+
+@media (max-width: 575px) {
+    .bg-header {
+        padding: 8px 12px;
+    }
+
+    .bg-logo {
+        margin-right: 12px;
+    }
+
+    .bg-logo img {
+        height: 28px;
+    }
+
+    .bg-toggle-links {
+        display: inline-flex;
+    }
+
+    .bg-links-list {
+        display: none;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        flex-direction: column;
+        align-items: stretch;
+        background: #fff;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        border-radius: 8px;
+        padding: 8px 0;
+        margin-top: 8px;
+        min-width: 240px;
+        z-index: 100;
+    }
+
+    .bg-links-list.bg-open {
+        display: flex;
+    }
+
+    .bg-links-title {
+        display: block;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: #555;
+        padding: 10px 16px 6px;
+    }
+
+    .bg-links-list li a {
+        display: block;
+        padding: 12px 20px;
+        border-radius: 0;
+        font-size: 14px;
+    }
+
+    .bg-links-list li a:hover {
+        background: #dce8f5;
+    }
+
+    .bg-divider {
+        display: none;
+    }
+}
+
+/* ==========================================================================
+   Print — hide the bar
+   ========================================================================== */
+
+@media print {
+    #barra-governo {
+        display: none !important;
+    }
+}
