@@ -1,15 +1,16 @@
 /* ==========================================================================
-   Barra do Governo Federal — Styles
+   Barra do Governo Federal — Frontend styles
+   Todas as cores são controladas por variáveis CSS injetadas no <head>.
    ========================================================================== */
 
 #barra-governo {
-    position: relative;
-    z-index: 99999;
+    /* position/top/z-index são injetados via inline vars */
     font-family: "Rawline", Raleway, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     font-size: 16px;
     line-height: 1.45;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    box-sizing: border-box;
 }
 
 #barra-governo *,
@@ -20,46 +21,60 @@
     padding: 0;
 }
 
+/* Empurra o conteúdo do tema para baixo quando a barra é fixa.
+   O JS adiciona a classe .bg-has-fixed-bar no <html> e define
+   --bg-bar-height dinamicamente. */
+html.bg-has-fixed-bar {
+    scroll-padding-top: var(--bg-bar-height, 0px);
+}
+html.bg-has-fixed-bar body {
+    padding-top: var(--bg-bar-height, 0px) !important;
+}
+
 /* Container */
-.bg-container {
-    background: #fff;
+#barra-governo .bg-container {
+    background: var(--bg-bar-bg, #fff);
     box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12);
     width: 100%;
 }
 
-.bg-header {
+#barra-governo .bg-header {
     display: flex !important;
     align-items: center !important;
     justify-content: flex-start !important;
-    max-width: 1400px !important;
+    max-width: var(--bg-max-width, 1400px) !important;
     margin-left: auto !important;
     margin-right: auto !important;
     padding: 10px 40px !important;
     min-height: 56px !important;
     float: none !important;
     text-align: left !important;
+    gap: 0;
 }
 
 /* Logo */
-.bg-logo {
+#barra-governo .bg-logo {
     display: flex;
     align-items: center;
     margin-right: 40px;
+    flex-shrink: 0;
 }
 
-.bg-logo a {
+#barra-governo .bg-logo a {
     display: inline-flex;
     text-decoration: none;
     line-height: 0;
 }
 
-.bg-logo img {
-    height: 36px;
+#barra-governo .bg-logo img {
+    height: var(--bg-logo-height, 36px);
     width: auto;
+    max-width: 100%;
+    display: block;
 }
 
 /* Actions — pushed to the right */
-.bg-actions {
+#barra-governo .bg-actions {
     display: flex !important;
     align-items: center !important;
     margin-left: auto !important;
@@ -68,75 +83,80 @@
 }
 
 /* Divider */
-.bg-divider {
+#barra-governo .bg-divider {
     display: inline-block;
     width: 1px;
     height: 32px;
-    background: #d6d6d6;
+    background: rgba(0, 0, 0, 0.14);
     margin: 0 16px;
     flex-shrink: 0;
 }
 
 /* Buttons — shared */
-.bg-btn {
+#barra-governo .bg-btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     background: transparent;
     border: 0;
     border-radius: 50%;
-    color: #1351b4;
+    color: var(--bg-bar-text, #1351b4);
     cursor: pointer;
     width: 40px;
     height: 40px;
     font-size: 18px;
-    transition: background-color 0.2s;
+    transition: background-color 0.2s, color 0.2s;
     flex-shrink: 0;
 }
 
-.bg-btn:hover {
-    background: rgba(19, 81, 180, 0.12);
+#barra-governo .bg-btn:hover {
+    background: var(--bg-bar-hover-bg, rgba(19, 81, 180, 0.12));
+    color: var(--bg-bar-hover-text, #0c326f);
 }
 
-.bg-btn:focus-visible {
+#barra-governo .bg-btn:focus-visible {
     outline: 4px dashed #c2850c;
     outline-offset: 4px;
 }
 
-.bg-btn i {
+#barra-governo .bg-btn i {
     font-size: 18px;
     line-height: 1;
     width: auto;
 }
 
 /* Quick links */
-.bg-links {
+#barra-governo .bg-links {
     display: flex;
     align-items: center;
     position: relative;
 }
 
-.bg-toggle-links {
+#barra-governo .bg-toggle-links {
     display: none;
 }
 
-.bg-links-list {
+#barra-governo .bg-links-list {
     display: flex;
     align-items: center;
     list-style: none;
-    gap: 8px;
+    gap: 4px;
     margin: 0;
     padding: 0;
 }
 
-.bg-links-title {
+#barra-governo .bg-links-title {
     display: none;
 }
 
-.bg-links-list li a {
+#barra-governo .bg-links-list li {
+    list-style: none;
+}
+
+#barra-governo .bg-links-list li a {
     display: inline-block;
-    padding: 8px 10px !important;
-    color: #1351b4;
+    padding: 8px 12px !important;
+    color: var(--bg-bar-text, #1351b4);
     text-decoration: none;
     font-size: 14px;
     font-weight: 500;
@@ -145,64 +165,56 @@
     transition: background-color 0.2s, color 0.2s;
 }
 
-.bg-links-list li a:hover {
-    background: #dce8f5;
-    color: #0c326f;
+#barra-governo .bg-links-list li a:hover,
+#barra-governo .bg-links-list li a:focus {
+    background: var(--bg-bar-hover-bg, #dce8f5);
+    color: var(--bg-bar-hover-text, #0c326f);
+    text-decoration: none;
 }
 
-.bg-links-list li a:focus-visible {
+#barra-governo .bg-links-list li a:focus-visible {
     outline: 4px dashed #c2850c;
     outline-offset: 4px;
 }
 
 /* Login */
-.bg-login {
+#barra-governo .bg-login {
     display: flex;
     align-items: center;
 }
 
-.bg-btn-login {
+#barra-governo .bg-btn-login {
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    background: #1351b4;
-    color: #fff;
+    background: var(--bg-login-bg, #1351b4);
+    color: var(--bg-login-text, #fff);
     border: 0;
     border-radius: 100em;
-    padding: 12px 36px !important;
+    padding: 12px 28px !important;
     font-size: 15px;
     font-weight: 700;
     cursor: pointer;
     white-space: nowrap;
     text-decoration: none;
-    transition: background-color 0.2s;
+    transition: background-color 0.2s, transform 0.15s;
 }
 
-.bg-btn-login:hover {
-    background: #0c326f;
-    color: #fff;
+#barra-governo .bg-btn-login:hover,
+#barra-governo .bg-btn-login:focus {
+    background: var(--bg-login-hover-bg, #0c326f);
+    color: var(--bg-login-text, #fff);
     text-decoration: none;
+    transform: translateY(-1px);
 }
 
-.bg-btn-login:focus-visible {
+#barra-governo .bg-btn-login:focus-visible {
     outline: 4px dashed #c2850c;
     outline-offset: 4px;
 }
 
-.bg-btn-login i {
+#barra-governo .bg-btn-login i {
     font-size: 16px;
-}
-
-/* Screen reader only */
-.sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    border: 0;
 }
 
 /* ==========================================================================
@@ -210,32 +222,28 @@
    ========================================================================== */
 
 @media (max-width: 991px) {
-    .bg-header {
-        padding: 10px 24px;
+    #barra-governo .bg-header {
+        padding: 10px 24px !important;
     }
 
-    .bg-logo {
-        margin-right: 24px;
+    #barra-governo .bg-logo {
+        margin-right: 20px;
     }
 
-    .bg-links-list {
-        gap: 4px;
-    }
-
-    .bg-links-list li a {
+    #barra-governo .bg-links-list li a {
         font-size: 13px;
-        padding: 7px 12px;
+        padding: 7px 10px !important;
     }
 
-    .bg-btn-login .bg-login-text {
+    #barra-governo .bg-btn-login .bg-login-text {
         display: none;
     }
 
-    .bg-btn-login {
+    #barra-governo .bg-btn-login {
         border-radius: 50%;
         width: 44px;
         height: 44px;
-        padding: 0;
+        padding: 0 !important;
         justify-content: center;
     }
 }
@@ -245,30 +253,32 @@
    ========================================================================== */
 
 @media (max-width: 575px) {
-    .bg-header {
-        padding: 8px 12px;
+    #barra-governo .bg-header {
+        padding: 8px 12px !important;
+        min-height: 48px !important;
     }
 
-    .bg-logo {
+    #barra-governo .bg-logo {
         margin-right: 12px;
     }
 
-    .bg-logo img {
-        height: 28px;
+    #barra-governo .bg-logo img {
+        height: calc(var(--bg-logo-height, 36px) - 8px);
+        min-height: 24px;
     }
 
-    .bg-toggle-links {
+    #barra-governo .bg-toggle-links {
         display: inline-flex;
     }
 
-    .bg-links-list {
+    #barra-governo .bg-links-list {
         display: none;
         position: absolute;
         top: 100%;
         right: 0;
         flex-direction: column;
         align-items: stretch;
-        background: #fff;
+        background: var(--bg-bar-bg, #fff);
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         border-radius: 8px;
         padding: 8px 0;
@@ -277,11 +287,11 @@
         z-index: 100;
     }
 
-    .bg-links-list.bg-open {
+    #barra-governo .bg-links-list.bg-open {
         display: flex;
     }
 
-    .bg-links-title {
+    #barra-governo .bg-links-title {
         display: block;
         font-size: 11px;
         font-weight: 700;
@@ -290,18 +300,14 @@
         padding: 10px 16px 6px;
     }
 
-    .bg-links-list li a {
+    #barra-governo .bg-links-list li a {
         display: block;
-        padding: 12px 20px;
+        padding: 12px 20px !important;
         border-radius: 0;
         font-size: 14px;
     }
 
-    .bg-links-list li a:hover {
-        background: #dce8f5;
-    }
-
-    .bg-divider {
+    #barra-governo .bg-divider {
         display: none;
     }
 }
@@ -309,9 +315,7 @@
 /* ==========================================================================
    Print — hide the bar
    ========================================================================== */
-
 @media print {
-    #barra-governo {
-        display: none !important;
-    }
+    #barra-governo { display: none !important; }
+    html.bg-has-fixed-bar body { padding-top: 0 !important; }
 }
