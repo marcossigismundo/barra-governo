@@ -10,12 +10,39 @@ if ( ! defined( 'ABSPATH' ) ) {
 class BG_Frontend {
 
     public function __construct() {
+        $mode = BG_Settings::value( 'mode', 'host' );
+
+        if ( $mode === 'client' ) {
+            // Client mode: consume the bar from a remote central installation.
+            add_action( 'wp_head', array( $this, 'render_client_script' ), 1 );
+            return;
+        }
+
         add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_assets' ) );
         add_action( 'wp_body_open', array( $this, 'render' ), 1 );
         add_action( 'wp_body_open', array( $this, 'mark_body_open' ), 0 );
         add_action( 'wp_head', array( $this, 'fallback_script' ), 99 );
         add_action( 'wp_head', array( $this, 'inline_vars' ), 5 );
         add_action( 'wp_head', array( $this, 'admin_bar_offset' ) );
+    }
+
+    /**
+     * Client mode output: a single async <script> tag pointing at the
+     * central host's embed endpoint. Everything else (CSS, HTML, JS)
+     * comes from the remote side.
+     */
+    public function render_client_script() {
+        if ( ! $this->enabled() ) {
+            return;
+        }
+        $remote = BG_Settings::value( 'remote_url', '' );
+        if ( empty( $remote ) ) {
+            if ( current_user_can( 'manage_options' ) ) {
+                echo "\n<!-- Barra IBRAM: modo cliente ativo, mas a URL do hospedeiro não foi configurada. -->\n";
+            }
+            return;
+        }
+        echo "\n<script src=\"" . esc_url( $remote ) . "\" async data-barra-ibram-client=\"1\"></script>\n";
     }
 
     /**

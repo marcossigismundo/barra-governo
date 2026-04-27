@@ -619,6 +619,327 @@
     justify-content: flex-end;
 }
 
+/* Mode pills ----------------------------------------------------------- */
+.bg-admin-actions {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.bg-mode-pill {
+    display: none;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    border-radius: 100em;
+    font-size: 12.5px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.bg-mode-pill .dashicons {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+}
+
+.bg-admin-wrap[data-bg-mode="host"] .bg-mode-host { display: inline-flex; }
+.bg-admin-wrap[data-bg-mode="client"] .bg-mode-client { display: inline-flex; background: #f39c12; border-color: #e67e22; }
+
+/* Distribution flow diagram ------------------------------------------- */
+.bg-flow {
+    display: flex;
+    align-items: stretch;
+    gap: 10px;
+    margin: 8px 0 28px;
+    padding: 18px;
+    background: linear-gradient(135deg, #f8fafc 0%, #eef4fb 100%);
+    border: 1px solid var(--bg-admin-border);
+    border-radius: var(--bg-admin-radius);
+}
+
+.bg-flow-step {
+    flex: 1;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 10px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05);
+}
+
+.bg-flow-step strong {
+    display: block;
+    font-size: 13px;
+    color: var(--bg-admin-primary-dark);
+    margin-bottom: 2px;
+}
+
+.bg-flow-step p {
+    margin: 0;
+    font-size: 12px;
+    color: var(--bg-admin-muted);
+    line-height: 1.4;
+}
+
+.bg-flow-icon {
+    width: 36px;
+    height: 36px;
+    background: var(--bg-admin-accent);
+    color: var(--bg-admin-primary);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.bg-flow-icon .dashicons {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+}
+
+.bg-flow-arrow {
+    display: flex;
+    align-items: center;
+    color: var(--bg-admin-primary);
+    font-size: 24px;
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+@media (max-width: 820px) {
+    .bg-flow { flex-direction: column; }
+    .bg-flow-arrow { transform: rotate(90deg); justify-content: center; }
+}
+
+/* Radio cards ---------------------------------------------------------- */
+.bg-radio-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-top: 6px;
+}
+
+@media (max-width: 782px) {
+    .bg-radio-cards { grid-template-columns: 1fr; }
+}
+
+.bg-radio-card {
+    cursor: pointer;
+    margin: 0 !important;
+}
+
+.bg-radio-card input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.bg-radio-card-inner {
+    display: block;
+    padding: 18px;
+    border: 2px solid var(--bg-admin-border);
+    border-radius: var(--bg-admin-radius);
+    background: #fff;
+    transition: all 0.15s;
+    height: 100%;
+}
+
+.bg-radio-card-inner .dashicons {
+    font-size: 26px;
+    width: 26px;
+    height: 26px;
+    color: var(--bg-admin-muted);
+    display: block;
+    margin-bottom: 8px;
+}
+
+.bg-radio-card-inner strong {
+    display: block;
+    color: #1f2937;
+    font-size: 14.5px;
+    margin-bottom: 4px;
+}
+
+.bg-radio-card-inner span {
+    color: var(--bg-admin-muted);
+    font-size: 12.5px;
+    line-height: 1.45;
+}
+
+.bg-radio-card:hover .bg-radio-card-inner {
+    border-color: var(--bg-admin-primary);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(19, 81, 180, 0.1);
+}
+
+.bg-radio-card input:checked + .bg-radio-card-inner {
+    border-color: var(--bg-admin-primary);
+    background: var(--bg-admin-accent);
+    box-shadow: 0 0 0 3px rgba(19, 81, 180, 0.15);
+}
+
+.bg-radio-card input:checked + .bg-radio-card-inner .dashicons {
+    color: var(--bg-admin-primary);
+}
+
+/* Host / client mode visibility --------------------------------------- */
+.bg-admin-wrap[data-bg-mode="host"]   .bg-mode-client-only { display: none; }
+.bg-admin-wrap[data-bg-mode="client"] .bg-mode-host-only   { display: none; }
+
+/* Sub-heading inside distribution panel ------------------------------- */
+.bg-subheading {
+    font-size: 15px;
+    color: #1f2937;
+    margin: 28px 0 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--bg-admin-border);
+}
+
+/* Copy fields (inline URL + button) ----------------------------------- */
+.bg-copy-field {
+    display: flex;
+    gap: 8px;
+    max-width: 680px;
+}
+
+.bg-copy-field input {
+    flex: 1;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace !important;
+    font-size: 13px !important;
+    background: var(--bg-admin-soft) !important;
+}
+
+.bg-copy-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px;
+    white-space: nowrap;
+}
+
+.bg-copy-btn .dashicons {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+}
+
+/* Snippet blocks ------------------------------------------------------ */
+.bg-snippet-block {
+    border: 1px solid var(--bg-admin-border);
+    border-radius: var(--bg-admin-radius);
+    padding: 16px;
+    margin-bottom: 16px;
+    background: #fff;
+}
+
+.bg-snippet-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.bg-snippet-head .dashicons {
+    color: var(--bg-admin-primary);
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+}
+
+.bg-snippet-head strong {
+    font-size: 14px;
+    color: #1f2937;
+}
+
+.bg-snippet-steps {
+    margin: 0 0 0 20px;
+    padding: 0;
+    color: #374151;
+    font-size: 13.5px;
+    line-height: 1.6;
+}
+
+.bg-snippet-steps li { margin-bottom: 4px; }
+
+.bg-code-copy {
+    position: relative;
+    margin-top: 10px;
+}
+
+.bg-code-copy pre {
+    background: #0f172a;
+    color: #e2e8f0;
+    padding: 14px 16px;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 0;
+    font-size: 12.5px;
+    line-height: 1.6;
+}
+
+.bg-code-copy pre code {
+    background: transparent;
+    color: inherit;
+    padding: 0;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.bg-code-copy .bg-copy-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: #fff !important;
+    border: 1px solid rgba(255, 255, 255, 0.25) !important;
+}
+
+.bg-code-copy .bg-copy-btn:hover {
+    background: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Callouts ------------------------------------------------------------ */
+.bg-callout {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 18px;
+    background: #fef9e7;
+    border: 1px solid #fcd34d;
+    border-left: 4px solid #f59e0b;
+    border-radius: 8px;
+    margin-top: 16px;
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: #78350f;
+}
+
+.bg-callout .dashicons {
+    color: #d97706;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.bg-callout strong { display: inline; }
+.bg-callout p { margin: 4px 0 0; }
+
+.bg-callout-info {
+    background: #eff6ff;
+    border-color: #93c5fd;
+    border-left-color: var(--bg-admin-primary);
+    color: #1e3a8a;
+}
+
+.bg-callout-info .dashicons { color: var(--bg-admin-primary); }
+
 /* Responsive preview layout tweaks ------------------------------------- */
 @media (max-width: 600px) {
     .bg-admin-header {
@@ -628,4 +949,5 @@
         padding: 22px;
     }
     .bg-admin-form { padding: 20px; }
+    .bg-admin-actions { width: 100%; justify-content: flex-start; }
 }

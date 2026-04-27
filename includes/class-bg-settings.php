@@ -16,6 +16,11 @@ class BG_Settings {
         return array(
             'enabled'        => 1,
 
+            // Distribution mode: 'host' (central: gera o embed para os demais)
+            // or 'client' (consome a barra a partir de uma URL remota).
+            'mode'           => 'host',
+            'remote_url'     => '',
+
             'logo_url'       => 'https://barra.sistema.gov.br/v1/assets/govbr.webp',
             'logo_id'        => 0,
             'logo_alt'       => 'Logo GovBR',
@@ -91,6 +96,9 @@ class BG_Settings {
         $clean['enabled']       = ! empty( $input['enabled'] ) ? 1 : 0;
         $clean['menu_enabled']  = ! empty( $input['menu_enabled'] ) ? 1 : 0;
         $clean['login_enabled'] = ! empty( $input['login_enabled'] ) ? 1 : 0;
+
+        $clean['mode']       = in_array( $input['mode'] ?? '', array( 'host', 'client' ), true ) ? $input['mode'] : 'host';
+        $clean['remote_url'] = isset( $input['remote_url'] ) ? esc_url_raw( trim( $input['remote_url'] ) ) : '';
 
         $clean['logo_url']    = isset( $input['logo_url'] ) ? esc_url_raw( $input['logo_url'] ) : $defaults['logo_url'];
         $clean['logo_id']     = isset( $input['logo_id'] ) ? absint( $input['logo_id'] ) : 0;

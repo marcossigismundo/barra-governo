@@ -19,9 +19,10 @@ class Barra_Governo {
     }
 
     private function __construct() {
-        load_plugin_textdomain( 'barra-governo', false, dirname( plugin_basename( BARRA_GOVERNO_FILE ) ) . '/languages' );
+        load_plugin_textdomain( 'barra-ibram', false, dirname( plugin_basename( BARRA_GOVERNO_FILE ) ) . '/languages' );
 
         new BG_Frontend();
+        new BG_Rest();
 
         if ( is_admin() ) {
             new BG_Admin();

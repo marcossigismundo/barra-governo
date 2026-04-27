@@ -14,6 +14,70 @@
 
     /* Help modal content — one entry per topic key referenced in PHP */
     var HELP = {
+        mode: {
+            title: 'Hospedeiro × Cliente',
+            body:
+                '<p>A Barra IBRAM foi projetada para <strong>distribuição em larga escala</strong>: um único ponto central controla a barra de todos os 60 sites da rede.</p>' +
+                '<ul>' +
+                '<li><strong>Hospedeiro (sede):</strong> instale em <em>apenas um</em> site. Ele guarda a configuração oficial (logo, menu, cores) e expõe um endpoint público <code>embed.js</code>.</li>' +
+                '<li><strong>Cliente (site satélite):</strong> instale nos 60 demais sites e informe apenas a URL do hospedeiro. A barra aparecerá automaticamente no topo.</li>' +
+                '</ul>' +
+                '<p>Qualquer ajuste feito na sede se propaga a todos os sites em até 5 minutos (tempo de cache HTTP).</p>'
+        },
+        embedurl: {
+            title: 'URL pública do embed',
+            body:
+                '<p>Esta URL é gerada automaticamente a partir do endereço do site. É servida pelo WordPress como JavaScript puro, com <code>Access-Control-Allow-Origin: *</code>, para ser consumível por qualquer domínio.</p>' +
+                '<p><strong>Cabeçalhos enviados:</strong></p>' +
+                '<ul>' +
+                '<li><code>Content-Type: application/javascript</code></li>' +
+                '<li><code>Cache-Control: public, max-age=300</code> (5 minutos)</li>' +
+                '<li><code>Access-Control-Allow-Origin: *</code></li>' +
+                '</ul>' +
+                '<p>Se você usa CDN ou cache de página, libere o caminho <code>/wp-json/barra-ibram/v1/embed.js</code>.</p>'
+        },
+        optionwp: {
+            title: 'Instalação em sites WordPress',
+            body:
+                '<p>Este é o caminho recomendado para os 60 sites IBRAM. Vantagens:</p>' +
+                '<ul>' +
+                '<li>Ativar e desativar a barra a qualquer momento.</li>' +
+                '<li>Alterar temporariamente a URL do hospedeiro (ex.: ambiente de homologação).</li>' +
+                '<li>Permissão centralizada — apenas administradores alteram.</li>' +
+                '</ul>' +
+                '<p>O plugin no modo cliente é extremamente leve: apenas adiciona uma linha <code>&lt;script&gt;</code> no <code>&lt;head&gt;</code>.</p>'
+        },
+        optionhtml: {
+            title: 'Sites HTML/estáticos, Drupal, Joomla etc.',
+            body:
+                '<p>Para sites fora do WordPress, basta colar a linha de script indicada. O <code>embed.js</code> é autossuficiente e injeta:</p>' +
+                '<ul>' +
+                '<li>O CSS oficial da barra</li>' +
+                '<li>A folha de ícones FontAwesome</li>' +
+                '<li>O HTML da barra no topo do <code>&lt;body&gt;</code></li>' +
+                '<li>O JS de comportamento (menu mobile, acessibilidade, posicionamento fixo)</li>' +
+                '</ul>' +
+                '<p>O atributo <code>async</code> garante que o carregamento da barra não bloqueie a renderização do site.</p>'
+        },
+        optionphp: {
+            title: 'Snippet PHP (WordPress sem o plugin)',
+            body:
+                '<p>Útil quando você não quer instalar o plugin nos 60 sites — o tema injeta a linha de script diretamente.</p>' +
+                '<p>Desvantagens em relação à Opção A:</p>' +
+                '<ul>' +
+                '<li>Desativar a barra exige editar código.</li>' +
+                '<li>Não há painel para alterar a URL do hospedeiro.</li>' +
+                '</ul>' +
+                '<p>Use quando a escolha é puramente operacional — evitar um plugin a mais — e já existe uma rotina consolidada de deploy do tema.</p>'
+        },
+        remoteurl: {
+            title: 'URL do hospedeiro',
+            body:
+                '<p>É a URL completa do endpoint <code>embed.js</code> da sede, fornecida pela equipe central.</p>' +
+                '<p>Formato esperado:</p>' +
+                '<p><code>https://central.ibram.gov.br/wp-json/barra-ibram/v1/embed.js</code></p>' +
+                '<p>Após salvar, recarregue uma página do site (no modo anônimo) para ver a barra aparecer no topo.</p>'
+        },
         position: {
             title: 'Posicionamento da barra',
             body:
@@ -330,6 +394,57 @@
     }
 
     /* ---------------------------------------------------------------- */
+    /* Clipboard copy                                                    */
+    /* ---------------------------------------------------------------- */
+    function initClipboard() {
+        var i18n = window.BG_Admin_i18n || {};
+        var okLabel = i18n.copied || 'Copiado!';
+
+        $(document).on('click', '.bg-copy-btn', function () {
+            var $btn    = $(this);
+            var sel     = $btn.data('copy-target');
+            var $target = $(sel);
+            if (!$target.length) return;
+
+            var text = $target.is('input, textarea') ? $target.val() : $target.text();
+            var original = $btn.html();
+
+            var done = function () {
+                $btn.html('<span class="dashicons dashicons-yes"></span> ' + okLabel);
+                setTimeout(function () { $btn.html(original); }, 1800);
+            };
+
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(text).then(done).catch(fallback);
+            } else {
+                fallback();
+            }
+
+            function fallback() {
+                var tmp = document.createElement('textarea');
+                tmp.value = text;
+                tmp.style.position = 'fixed';
+                tmp.style.top = '-1000px';
+                document.body.appendChild(tmp);
+                tmp.select();
+                try { document.execCommand('copy'); } catch (e) {}
+                document.body.removeChild(tmp);
+                done();
+            }
+        });
+    }
+
+    /* ---------------------------------------------------------------- */
+    /* Mode toggle (host / client)                                       */
+    /* ---------------------------------------------------------------- */
+    function initModeToggle() {
+        var $wrap = $('.bg-admin-wrap');
+        $(document).on('change', 'input[name$="[mode]"]', function () {
+            $wrap.attr('data-bg-mode', $(this).val());
+        });
+    }
+
+    /* ---------------------------------------------------------------- */
     /* Boot                                                              */
     /* ---------------------------------------------------------------- */
     $(function () {
@@ -339,6 +454,8 @@
         initRepeater();
         initColorPickers();
         initPreviewBindings();
+        initClipboard();
+        initModeToggle();
     });
 
 })(jQuery);
